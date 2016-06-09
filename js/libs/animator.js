@@ -14,16 +14,14 @@ Animator.prototype.setSequence = function (name, frames, time) {
     sequence.name = name;
     sequence.frames = frames;
     sequence.delay = (time === null) ? null : time / frames.length;
+    sequence.currentFrame = 0;
     this.sequences.push(sequence);
     if (this.currentSequence === null) { this.currentSequence = sequence; }
 };
 
 Animator.prototype.play = function (sequence) {
     var seq = this.sequences.filter(function(s){ return s.name == sequence; });
-    if(seq) {
-        this.currentSequence = seq[0];
-        this.currentSequence.currentFrame = 0;
-    }
+    if(seq) { this.currentSequence = seq[0]; }
 };
 
 Animator.prototype.getFrame = function (delta) {
@@ -42,7 +40,6 @@ Animator.prototype.getFrame = function (delta) {
     var frame = Tools.i2xy(this.currentSequence.frames[frameNo] - 1, this.imgWidth/this.frameWidth);
     var x = frame[0] * this.frameWidth;
     var y = frame[1] * this.frameHeight;
-
     var can = document.createElement('canvas');
     var con = can.getContext('2d');
     can.width = this.frameWidth;
