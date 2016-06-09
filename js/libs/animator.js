@@ -9,11 +9,11 @@ function Animator(image, frameWidth, frameHeight) {
     this.timer = 0;
 }
 
-Animator.prototype.setSequence = function (name, frames, delay) {
+Animator.prototype.setSequence = function (name, frames, time) {
     sequence = {};
     sequence.name = name;
     sequence.frames = frames;
-    sequence.delay = delay;
+    sequence.delay = (time === null) ? null : time / frames.length;
     this.sequences.push(sequence);
     if (this.currentSequence === null) { this.currentSequence = sequence; }
 };
@@ -29,7 +29,7 @@ Animator.prototype.play = function (sequence) {
 Animator.prototype.getFrame = function (delta) {
 
     this.timer += delta;
-    var frameNo;
+    var frameNo = 0;
 
     if(this.currentSequence.delay !== null) {
         if(this.timer > this.currentSequence.delay) {
@@ -37,8 +37,6 @@ Animator.prototype.getFrame = function (delta) {
             this.timer = 0;
         }
         frameNo = this.currentSequence.currentFrame % (this.imgWidth / this.frameWidth);
-    } else {
-        frameNo = 0;
     }
 
     var frame = Tools.i2xy(this.currentSequence.frames[frameNo] - 1, this.imgWidth/this.frameWidth);

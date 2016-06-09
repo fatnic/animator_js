@@ -17,7 +17,7 @@ AM.downloadAll(init);
 function Coin() {
     this.anim = new Animator(AM.get('img.coin'), 44, 40);
     this.anim.setSequence('still', [10], null);
-    this.anim.setSequence('spin', [1,2,3,4,5,6,7,8,9,10], 0.05);
+    this.anim.setSequence('spin', [10,1,2,3,4,5,6,7,8,9], 1);
     this.position = new Vec2(canvas.width/2, canvas.height/2);
 
     this.draw = function() {
@@ -26,7 +26,7 @@ function Coin() {
 }
 
 var coin = new Coin();
-// coin.anim.play('still');
+coin.anim.play('spin');
 
 function init() {
     loop();
