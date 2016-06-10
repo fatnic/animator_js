@@ -9,7 +9,7 @@ function Animator(image, frameWidth, frameHeight) {
     this.timer = 0;
 }
 
-Animator.prototype.setSequence = function (name, frames, time) {
+Animator.prototype.addSequence = function (name, frames, time) {
     sequence = {};
     sequence.name = name;
     sequence.frames = frames;
