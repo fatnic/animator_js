@@ -7,6 +7,11 @@ function Animator(image, frameWidth, frameHeight) {
     this.sequences = [];
     this.currentSequence = null;
     this.timer = 0;
+
+    this.canvas = document.createElement('canvas');
+    this.context = this.canvas.getContext('2d');
+    this.canvas.width = this.frameWidth;
+    this.canvas.height = this.frameHeight;
 }
 
 Animator.prototype.addSequence = function (name, frames, time) {
@@ -40,10 +45,7 @@ Animator.prototype.getFrame = function (delta) {
     var frame = Tools.i2xy(this.currentSequence.frames[frameNo] - 1, this.imgWidth/this.frameWidth);
     var x = frame[0] * this.frameWidth;
     var y = frame[1] * this.frameHeight;
-    var can = document.createElement('canvas');
-    var con = can.getContext('2d');
-    can.width = this.frameWidth;
-    can.height = this.frameHeight;
-    con.drawImage(this.image, x, y, can.width, can.height, 0, 0, this.frameWidth, this.frameHeight);
-    return can;
+    this.context.clearRect(0, 0, this.frameWidth, this.frameHeight);
+    this.context.drawImage(this.image, x, y, this.frameWidth, this.frameHeight, 0, 0, this.frameWidth, this.frameHeight);
+    return this.canvas;
 };
