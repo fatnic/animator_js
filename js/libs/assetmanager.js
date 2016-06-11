@@ -17,7 +17,7 @@ function AssetManager(config){
     this.errorCount = 0;
     this.downloadQueue = [];
     this.cache = {};
-    this.base = config.base;
+    this.base = config.base || '';
     this.config = config;
     this.init();
 }
